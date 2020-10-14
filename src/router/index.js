@@ -1,27 +1,72 @@
 import Vue from 'vue'
-import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
+import Router from 'vue-router'
+import Login from '../views/Logein'
+import Register from '../views/Register'
+import User from '../views/User'
+import Edit from '../views/Edit'
+import Attention from '../views/Attention'
+import Comments from '../views/Comments'
+import '../styles/base.less'
+import '../styles/iconfont.css'
+Vue.use(Router)
 
-Vue.use(VueRouter)
+const router = new Router({
+  mode: 'history',
+  routes: [
+    { path: '/', redirect: '/login' },
+    { path: '/login', component: Login },
+    { path: '/register', component: Register },
+    {
+      path: '/user',
+      component: User,
+      beforeEnter: (to, from, next) => {
+        const token = localStorage.getItem('token')
+        if (to.path == '/user') {
+          token ? next() : next('/login')
+        } else {
+          next()
+        }
+      }
+    },
+    {
+      path: '/edit',
+      component: Edit,
+      beforeEnter: (to, from, next) => {
+        const token = localStorage.getItem('token')
+        if (to.path == '/edit') {
+          token ? next() : next('/login')
+        } else {
+          next()
+        }
+      }
+    },
+    {
+      path: '/attention',
+      component: Attention,
+      beforeEnter: (to, from, next) => {
+        const token = localStorage.getItem('token')
+        if (to.path == '/attention') {
+          token ? next() : next('/login')
+        } else {
+          next()
+        }
+      }
+    },
+    {
+      path: '/comments',
+      component: Comments,
+      beforeEnter: (to, from, next) => {
+        const token = localStorage.getItem('token')
+        if (to.path == '/comments') {
+          token ? next() : next('/login')
+        } else {
+          next()
+        }
+      }
+    }
 
-const routes = [
-  {
-    path: '/',
-    name: 'Home',
-    component: Home
-  },
-  {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-  }
-]
 
-const router = new VueRouter({
-  routes
+
+  ]
 })
-
 export default router
