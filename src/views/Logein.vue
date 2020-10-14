@@ -1,6 +1,6 @@
 <template>
   <div class="login">
-    <hm-header class="title">登录1111</hm-header>
+    <hm-header class="title">登录</hm-header>
     <hm-loge></hm-loge>
     <van-field
       v-model="u_name"
@@ -62,32 +62,32 @@ export default {
               password: u_password,
             })
             .then((res) => {
-              const {data}=res.data
+              const { data } = res.data;
               const { message, statusCode } = res.data;
-              if(statusCode == 200){
-                localStorage.setItem('token',data.token)
-                localStorage.setItem('id',data.user.id)
+              if (statusCode == 200) {
+                localStorage.setItem("token", data.token);
+                localStorage.setItem("id", data.user.id);
                 // this.axios.defaults.headers.common['Authorization']=localStorage.getItem('token')
                 this.$router.push("/user");
               }
               this.$toast.success(message);
             })
-            // .catch((err) => {
-            //   this.$toast.fail("网络故障，稍后再试！");
-            // })
-        : this.$toast.fail("用户名或密码格式不对");
+        : // .catch((err) => {
+          //   this.$toast.fail("网络故障，稍后再试！");
+          // })
+          this.$toast.fail("用户名或密码格式不对");
     },
   },
 };
 </script>
 
 <style>
-.toRegister{
+.toRegister {
   margin-top: 10px;
   padding-right: 30px;
   text-align: right;
 }
-.title .iconjiantou2{
+.title .iconjiantou2 {
   display: none;
 }
 </style>
