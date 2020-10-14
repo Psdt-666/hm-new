@@ -1,6 +1,6 @@
 <template>
   <div class="login">
-    <hm-header class="title">登录</hm-header>
+    <hm-header class="title">登录1111</hm-header>
     <hm-loge></hm-loge>
     <van-field
       v-model="u_name"
