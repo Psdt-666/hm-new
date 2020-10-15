@@ -7,6 +7,7 @@ import Edit from '../views/Edit'
 import Attention from '../views/Attention'
 import Comments from '../views/Comments'
 import Enshrine from '../views/Enshrine'
+import Home from '../views/Home'
 import '../styles/base.less'
 import '../styles/iconfont.css'
 Vue.use(Router)
@@ -76,7 +77,20 @@ const router = new Router({
           next()
         }
       }
+    },
+    {
+      path: '/home',
+      component: Home,
+      beforeEnter: (to, from, next) => {
+        const token = localStorage.getItem('token')
+        if (to.path == '/home') {
+          token ? next() : next('/login')
+        } else {
+          next()
+        }
+      }
     }
+
 
 
 

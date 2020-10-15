@@ -2,7 +2,7 @@
   <div class="login">
     <hm-header>个人中心</hm-header>
     <div class="umsg">
-      <img :src="axios.defaults.baseURL+info.head_img" alt="" />
+      <img :src="axios.defaults.baseURL + info.head_img" alt="" />
       <div>
         <i
           :class="{
@@ -10,15 +10,30 @@
             'iconfont iconxingbienv': !info.gender,
           }"
         ></i>
-        <span>{{ info.nickname}}</span>
-        <p>{{ info.create_date |date}}</p>
+        <span>{{ info.nickname }}</span>
+        <p>{{ info.create_date | date }}</p>
       </div>
     </div>
     <van-cell-group>
-      <van-cell title="我的关注" is-link value="关注的用户" @click="$router.push('/attention')"/>
-      <van-cell title="我的跟贴" is-link value="跟帖回复" @click="$router.push('/comments')" />
-      <van-cell title="我的收藏" is-link value="文档/视频" />
-      <van-cell title="设置" is-link @click="$router.push('/edit')"/>
+      <van-cell
+        title="我的关注"
+        is-link
+        value="关注的用户"
+        @click="$router.push('/attention')"
+      />
+      <van-cell
+        title="我的跟贴"
+        is-link
+        value="跟帖回复"
+        @click="$router.push('/comments')"
+      />
+      <van-cell
+        title="我的收藏"
+        is-link
+        value="文档/视频"
+        @click="$router.push('/enshrine')"
+      />
+      <van-cell title="设置" is-link @click="$router.push('/edit')" />
       <van-cell title="退出" is-link @click="logout" />
     </van-cell-group>
   </div>
@@ -32,11 +47,11 @@ export default {
     };
   },
   created() {
-    const id=localStorage.getItem('id')
-    this.axios.get(`/user/${id}`).then((res)=>{
-      const data=res.data
-      data.statusCode==200?this.info=data.data:''
-    })
+    const id = localStorage.getItem("id");
+    this.axios.get(`/user/${id}`).then((res) => {
+      const data = res.data;
+      data.statusCode == 200 ? (this.info = data.data) : "";
+    });
   },
   methods: {
     logout() {

@@ -1,26 +1,35 @@
 <template>
   <div>
-    <i class="iconfont iconjiantou2" @click='$router.go(-1)'></i>
-    <h2>
-      <slot></slot>
-    </h2>
+    <div class="bgbox"></div>
+    <div class="header">
+      <i class="iconfont iconjiantou2" @click="$router.go(-1)"></i>
+      <h2>
+        <slot></slot>
+      </h2>
+    </div>
   </div>
 </template>
 
 <script>
-export default {
-
-}
+export default {};
 </script>
 
 <style scoped>
-i{
+.bgbox {
+  height: 40px;
+}
+.header {
+  width: 100%;
+  position: fixed;
+  top: 0;
+}
+i {
   font-size: 18px;
   float: left;
   line-height: 40px;
   height: 40px;
 }
-h2{
+h2 {
   text-align: center;
   height: 40px;
   line-height: 40px;

@@ -17,3 +17,10 @@
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
 }
+.homeHeader .header .iconjiantou2 {
+  display: none;
+}
+.homeHeader .header h2 {
+  background: rgba(241, 18, 18, 0.7);
+  display: flex;
+}
