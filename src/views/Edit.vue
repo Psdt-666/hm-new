@@ -49,7 +49,7 @@
         </van-cell-group>
       </van-radio-group>
     </van-dialog>
-    <input type="file" @change="ff">
+    <input type="file" @change="ff" />
   </div>
 </template>
 
@@ -57,7 +57,7 @@
 export default {
   data() {
     return {
-      ss:'',
+      ss: "",
       info: "",
       nickname: "",
       gender: "",
@@ -71,8 +71,7 @@ export default {
   },
 
   methods: {
-
-    ff(el){
+    ff(el) {
       console.log(el);
     },
     axiosGet(url) {
@@ -129,10 +128,10 @@ export default {
       let data = new FormData();
       data.append("file", file.file);
       this.axios.post("/upload", data).then((res) => {
-        const head_img=res.data.data.url
+        const head_img = res.data.data.url;
         const id = localStorage.getItem("id");
         this.axiosPost(`/user_update/${id}`, {
-         head_img,
+          head_img,
         });
       });
     },
