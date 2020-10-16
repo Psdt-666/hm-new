@@ -21,6 +21,6 @@
   display: none;
 }
 .homeHeader .header h2 {
-  background: rgba(241, 18, 18, 0.7);
+  background: rgb(240, 143, 143);
   display: flex;
 }

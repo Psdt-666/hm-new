@@ -104,7 +104,7 @@ h3 {
 .content3 {
   position: relative;
   .right {
-    // padding: 10px 5px;
+    padding: 10px 5px;
     padding: 5px;
     .play {
       position: absolute;
@@ -124,9 +124,9 @@ h3 {
     }
 
     img {
-      width: 100%;
-      // width: 335px;
-      // height: 170px;
+      // width: 100%;
+      width: 335px;
+      height: 170px;
       object-fit: cover;
     }
   }

@@ -21,6 +21,7 @@ export default {};
 .header {
   width: 100%;
   position: fixed;
+  z-index: 999;
   top: 0;
 }
 i {

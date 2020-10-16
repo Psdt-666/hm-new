@@ -29,7 +29,7 @@ import HomeHeader from './components/HomeHeader'
 Vue.component('home-header', HomeHeader)
 
 
-import { List, Field, Toast, Cell, CellGroup, Dialog, Uploader, Radio, RadioGroup } from 'vant'
+import { Tabs, PullRefresh, Tab, List, Field, Toast, Cell, CellGroup, Dialog, Uploader, Radio, RadioGroup } from 'vant'
 Vue.use(Field);
 Vue.use(Toast);
 Vue.use(Cell);
@@ -39,6 +39,9 @@ Vue.use(Uploader)
 Vue.use(Radio)
 Vue.use(RadioGroup)
 Vue.use(List)
+Vue.use(Tab)
+Vue.use(Tabs)
+Vue.use(PullRefresh)
 axios.interceptors.request.use(config => {
   let token = localStorage.getItem('token')
   if (token) {
