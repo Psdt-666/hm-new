@@ -1,7 +1,7 @@
 <template>
   <div>
     <home-header></home-header>
-
+    <div class="right">></div>
     <van-tabs v-model="active" sticky>
       <van-tab :title="item.name" v-for="item in list" :key="item.id">
         <van-list
@@ -20,6 +20,7 @@
               v-for="item in data"
               :key="item.id"
               :item="item"
+              @click.native="$router.push(`detail/${item.id}`)"
             ></my-enshrine>
           </van-pull-refresh>
         </van-list>
@@ -78,9 +79,14 @@ export default {
     },
   },
   watch: {
-    active(val) {
+    active() {
+      // this.finished = false;
+      //1.
       this.data = [];
       this.pageIndex = 1;
+      //2.
+      this.finished = false;
+      this.loading = true;
       this.getdata(1);
     },
   },
@@ -88,7 +94,18 @@ export default {
 </script>
 
 <style scoped lang='less'>
+.right {
+  height: 44px;
+  width: 40px;
+  text-align: center;
+  line-height: 44px;
+  background: #cccc;
+  position: absolute;
+  right: 0;
+  z-index: 997;
+}
 /deep/ .van-tabs__nav {
   background: #cccc;
+  margin-right: 40px;
 }
 </style>

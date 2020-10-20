@@ -7,7 +7,7 @@
       <div class="center">
         <i class="iconfont iconsearch"></i><span>搜索新闻</span>
       </div>
-      <div class="right">
+      <div class="right" @click="$router.push('/user')">
         <i class="iconfont iconwode"></i>
       </div>
     </hm-header>

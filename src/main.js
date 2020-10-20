@@ -28,8 +28,14 @@ Vue.component('my-enshrine', MyEnshrine)
 import HomeHeader from './components/HomeHeader'
 Vue.component('home-header', HomeHeader)
 
+import Comment from './components/Comment'
+Vue.component('comment', Comment)
 
-import { Tabs, PullRefresh, Tab, List, Field, Toast, Cell, CellGroup, Dialog, Uploader, Radio, RadioGroup } from 'vant'
+import Reply from './components/Reply'
+Vue.component('reply', Reply)
+
+
+import { Icon, Tabs, PullRefresh, Tab, List, Field, Toast, Cell, CellGroup, Dialog, Uploader, Radio, RadioGroup } from 'vant'
 Vue.use(Field);
 Vue.use(Toast);
 Vue.use(Cell);
@@ -42,6 +48,9 @@ Vue.use(List)
 Vue.use(Tab)
 Vue.use(Tabs)
 Vue.use(PullRefresh)
+Vue.use(Icon);
+
+
 axios.interceptors.request.use(config => {
   let token = localStorage.getItem('token')
   if (token) {
@@ -53,7 +62,12 @@ axios.interceptors.request.use(config => {
 axios.interceptors.response.use((res) => {
   const { statusCode, message } = res.data
   statusCode == 401 && message == '用户信息验证失败' &&
-    Toast('token已经失效请重新登录') && router.push('./login')
+    Toast('token已经失效请重新登录') && router.push({
+      name: 'login',
+      params: {
+        back: true
+      }
+    })
   return res
 })
 

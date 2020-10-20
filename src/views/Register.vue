@@ -75,10 +75,10 @@ export default {
               const { message, statusCode } = res.data;
               statusCode === 200 &&
                 this.$router.push({
-                  path: "/login",
-                  query: {
+                  name: "login",
+                  params: {
                     username: u_name,
-                    password: u_password
+                    password: u_password,
                   },
                 });
               this.$toast.success(message);

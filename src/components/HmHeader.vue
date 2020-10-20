@@ -25,6 +25,7 @@ export default {};
   top: 0;
 }
 i {
+  margin-left: 10px;
   font-size: 18px;
   float: left;
   line-height: 40px;

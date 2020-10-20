@@ -31,16 +31,18 @@
 export default {
   data() {
     return {
-      u_name: "",
+      u_name: "10086",
       name_msg: "",
-      u_password: "",
+      u_password: "123",
       password_msg: "",
     };
   },
   created() {
-    const { username, password } = this.$route.query;
-    this.u_name = username;
-    this.u_password = password;
+    const { username, password } = this.$route.params;
+    username &&
+      password &&
+      (this.u_name = username) &&
+      (this.u_password = password);
   },
   methods: {
     checkname() {
@@ -67,8 +69,12 @@ export default {
               if (statusCode == 200) {
                 localStorage.setItem("token", data.token);
                 localStorage.setItem("id", data.user.id);
-                // this.axios.defaults.headers.common['Authorization']=localStorage.getItem('token')
-                this.$router.push("/user");
+                if (this.$route.params.back) {
+                  this.$router.back();
+                  console.log(1111);
+                } else {
+                  this.$router.push("/home");
+                }
               }
               this.$toast.success(message);
             })
