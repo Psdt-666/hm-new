@@ -10,7 +10,13 @@
         ><br />
         <span>{{ commentData.user.create_date }}</span>
       </div>
-      <button>回复</button>
+      <button
+        @click.prevent="
+          reply(commentData.id, commentData.user.nickname, $event)
+        "
+      >
+        回复
+      </button>
     </div>
     <reply
       v-if="commentData"
@@ -41,6 +47,9 @@ export default {
       } else {
         return m;
       }
+    },
+    reply(userId, nickname, event) {
+      this.$bus.$emit("replybus", userId, nickname, event);
     },
   },
 };

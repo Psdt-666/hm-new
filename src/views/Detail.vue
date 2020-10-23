@@ -36,6 +36,7 @@
         <span>2</span>
       </div>
     </div>
+    <p ref="scrollElement"></p>
     <div class="comments" v-if="commentData">
       <comment
         v-for="item in commentData"
@@ -49,7 +50,12 @@
         placeholder="写跟贴"
         @focus="showFooter = !showFooter"
       />
-      <van-icon name="chat-o" badge="9" /> <van-icon name="star-o" />
+      <van-icon name="chat-o" :badge="articleData.comment_length" />
+      <van-icon
+        name="star-o"
+        :class="{ enshrine: articleData.has_star }"
+        @click="enshrine"
+      />
     </footer>
     <footer class="footer2" v-show="!showFooter">
       <textarea
@@ -57,9 +63,12 @@
         id=""
         cols="30"
         rows="2"
-        placeholder="回复："
+        ref="textarea"
+        v-model="commentTxt"
+        @focus="clearText"
+        @blur="setText"
       ></textarea>
-      <button>提交</button>
+      <button @touchstart.prevent.stop="submit">提交</button>
     </footer>
   </div>
 </template>
@@ -71,11 +80,20 @@ export default {
       articleData: "",
       commentData: "",
       showFooter: true,
+      commentTxt: "评论：",
+      parent_id: "",
+      // event: this.$refs.scrollElement,
     };
   },
   created() {
     this.getArticle();
     this.getCmment();
+    this.$bus.$on("replybus", (userId, nickname, event) => {
+      this.parent_id = userId;
+      this.commentTxt = "回复：" + nickname;
+      this.showFooter = false;
+      // this.event = event;
+    });
   },
   methods: {
     async getArticle() {
@@ -107,6 +125,44 @@ export default {
         `/post_comment/${this.$route.params.articleId}`
       );
       this.commentData = res.data.data;
+    },
+    clearText() {
+      this.commentTxt.startsWith("评论：") && (this.commentTxt = "");
+    },
+    setText() {
+      this.commentTxt == "" && (this.commentTxt = "评论：");
+      this.showFooter = true;
+    },
+    async submit() {
+      const status = this.commentTxt == "评论：" || this.commentTxt == "";
+      if (status) {
+        return;
+      }
+      await this.axios.post(`/post_comment/${this.$route.params.articleId}`, {
+        content: this.commentTxt,
+        parent_id: this.parent_id,
+      });
+      this.commentTxt = "评论：";
+      this.showFooter = true;
+      this.parent_id = "";
+      // console.log(this.event);
+      this.$refs.scrollElement.scrollIntoView();
+      this.getCmment();
+      this.getArticle();
+    },
+    replybtn(v) {
+      this.parent_id = v;
+    },
+    async enshrine() {
+      await this.axios.get(`/post_star/${this.$route.params.articleId}`);
+      this.getArticle();
+    },
+  },
+  watch: {
+    showFooter() {
+      this.$nextTick(() => {
+        this.showFooter == false && this.$refs.textarea.focus();
+      });
     },
   },
 };
@@ -223,5 +279,8 @@ export default {
 }
 .f_padding2 {
   padding-bottom: 62px;
+}
+.enshrine {
+  color: red;
 }
 </style>

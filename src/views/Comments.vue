@@ -50,7 +50,7 @@ export default {
       });
       this.list = [...this.list, ...res.data.data];
       this.loading = false;
-      res.data.data.length<5&&(this.finished=true)
+      res.data.data.length < 5 && (this.finished = true);
     },
     onLoad() {
       this.rander();

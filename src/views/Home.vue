@@ -1,15 +1,15 @@
 <template>
   <div>
     <home-header></home-header>
-    <div class="right">></div>
+    <div class="right" @click="$router.push('/tableList')">></div>
     <van-tabs v-model="active" sticky>
       <van-tab :title="item.name" v-for="item in list" :key="item.id">
         <van-list
           v-model="loading"
           :finished="finished"
           finished-text="没有更多了"
-          @load="onLoad"
           :immediate-check="false"
+          @load="onLoad"
         >
           <van-pull-refresh
             v-model="isLoading"
@@ -31,6 +31,7 @@
 
 <script>
 export default {
+  name: "home",
   data() {
     return {
       active: 1,
@@ -38,13 +39,13 @@ export default {
       data: [],
       loading: false,
       finished: false,
-      isLoading: true,
+      isLoading: false,
       pageIndex: 1,
       pageSize: 5,
     };
   },
   created() {
-    this.getlist();
+    this.getlist(1);
   },
   methods: {
     async getlist() {
@@ -70,6 +71,7 @@ export default {
       res2.data.data.length < 5 && (this.finished = true);
     },
     onRefresh() {
+      this.finished = false;
       this.pageIndex = 1;
       this.getdata(0);
     },
@@ -80,11 +82,8 @@ export default {
   },
   watch: {
     active() {
-      // this.finished = false;
-      //1.
       this.data = [];
       this.pageIndex = 1;
-      //2.
       this.finished = false;
       this.loading = true;
       this.getdata(1);

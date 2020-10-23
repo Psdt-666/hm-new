@@ -49,7 +49,6 @@
         </van-cell-group>
       </van-radio-group>
     </van-dialog>
-    <input type="file" @change="ff" />
   </div>
 </template>
 

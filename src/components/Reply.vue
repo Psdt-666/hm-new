@@ -5,11 +5,15 @@
       :isReply="isReply - 1"
       :replyData="replyData.parent"
     ></reply>
-    <div class="reply">
+    <div class="replystyle">
       <p>
-        <span>{{ isReply }}楼</span><span>{{ replyData.user.nickname }}</span>
-        <span>{{ replyData.create_date }}</span
-        ><span>回复</span>
+        <span>{{ isReply }}楼</span>
+        <span>{{ replyData.user.nickname }}</span>
+        <span>{{ replyData.create_date }}</span>
+        <span
+          @click.prevent="reply(replyData.id, replyData.user.nickname, $event)"
+          >回复</span
+        >
       </p>
       <p>{{ replyData.content }}</p>
     </div>
@@ -28,11 +32,16 @@ export default {
       required: true,
     },
   },
+  methods: {
+    reply(userId, nickname, event) {
+      this.$bus.$emit("replybus", userId, nickname, event);
+    },
+  },
 };
 </script>
 
 <style scoped lang='less'>
-.reply {
+.replystyle {
   background: rgb(233, 233, 233);
   border: 1px solid rgb(204, 204, 204);
   padding: 10px;
